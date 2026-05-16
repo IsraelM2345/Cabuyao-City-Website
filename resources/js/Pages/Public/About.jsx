@@ -135,31 +135,31 @@ export default function About() {
                             About
                         </a>
                         <a
-                            href="#"
+                            href="/departments"
                             className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
                         >
                             Departments
                         </a>
                         <a
-                            href="#"
+                            href="/news"
                             className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
                         >
                             News
                         </a>
                         <a
-                            href="#"
+                            href="/drrm"
                             className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
                         >
                             DRRM
                         </a>
                         <a
-                            href="#"
+                            href="/faqs"
                             className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
                         >
                             FAQs
                         </a>
                         <a
-                            href="#"
+                            href="/contact"
                             className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
                         >
                             Contact
