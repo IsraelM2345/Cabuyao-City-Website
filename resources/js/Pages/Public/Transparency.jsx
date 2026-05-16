@@ -6,17 +6,74 @@ import {
     Globe,
     Menu,
     X,
-    Map,
-    Eye,
-    Target,
-    Clock,
-    Users,
-    Building,
-    ArrowRight,
     ChevronDown,
+    FileText,
+    Download,
+    Award,
+    Search,
 } from "lucide-react";
 
-export default function About() {
+// --- TRANSPARENCY DOCUMENTS DATA ---
+const DOCUMENTS = [
+    {
+        id: 1,
+        year: "2025",
+        title: "Annual Budget Report",
+        category: "Financial",
+        size: "2.4 MB",
+    },
+    {
+        id: 2,
+        year: "2025",
+        title: "Statement of Receipts and Expenditures",
+        category: "Financial",
+        size: "1.8 MB",
+    },
+    {
+        id: 3,
+        year: "2025",
+        title: "Annual Procurement Plan",
+        category: "Procurement",
+        size: "3.1 MB",
+    },
+    {
+        id: 4,
+        year: "2025",
+        title: "Supplemental Procurement Plan",
+        category: "Procurement",
+        size: "1.2 MB",
+    },
+    {
+        id: 5,
+        year: "2025",
+        title: "Trust Fund Utilization",
+        category: "Fund Utilization",
+        size: "800 KB",
+    },
+    {
+        id: 6,
+        year: "2025",
+        title: "20% Component of IRA Utilization",
+        category: "Fund Utilization",
+        size: "1.5 MB",
+    },
+    {
+        id: 7,
+        year: "2025",
+        title: "Report of Special Education Fund",
+        category: "Fund Utilization",
+        size: "1.1 MB",
+    },
+    {
+        id: 8,
+        year: "2025",
+        title: "Quarterly Statement of Cash Flows",
+        category: "Financial",
+        size: "2.0 MB",
+    },
+];
+
+export default function Transparency() {
     // --- STATES ---
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -29,7 +86,7 @@ export default function About() {
     };
 
     return (
-        <div className="min-h-screen bg-white font-sans text-gray-800">
+        <div className="min-h-screen bg-gray-50 font-sans text-gray-800">
             {/* 1. TOP BAR */}
             <div
                 className="w-full h-8 flex items-center px-6 text-white text-xs font-medium"
@@ -41,12 +98,12 @@ export default function About() {
                 Republic of the Philippines
             </div>
 
-            {/* 2. NAVIGATION BAR */}
+            {/* 2. NAVIGATION BAR (No EvacTrack Login) */}
             <nav className="w-full bg-white px-6 md:px-12 py-4 flex items-center justify-between shadow-sm sticky top-0 z-50">
                 <div className="flex items-center gap-3">
                     <img
                         src="/images/cab.png"
-                        alt="City of Cabuyao Logo"
+                        alt="City Logo"
                         className="w-12 h-12 object-contain rounded-full border-2 border-red-500 p-0.5 bg-white"
                         onError={(e) =>
                             (e.target.src =
@@ -64,7 +121,7 @@ export default function About() {
                 </div>
 
                 {/* DESKTOP MENU */}
-                <div className="hidden xl:flex items-center gap-6">
+                <div className="hidden xl:flex items-center gap-8">
                     <a
                         href="/"
                         className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
@@ -72,15 +129,15 @@ export default function About() {
                         Home
                     </a>
 
-                    {/* Dropdown: The City (ACTIVE STATE) */}
+                    {/* Dropdown: The City */}
                     <div className="relative group py-4">
-                        <button className="flex items-center gap-1 text-sm font-bold text-red-600 transition">
+                        <button className="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-red-600 transition">
                             The City <ChevronDown size={14} />
                         </button>
                         <div className="absolute top-full left-0 mt-0 w-48 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
                             <a
                                 href="/about"
-                                className="block px-4 py-3 text-sm font-bold text-red-600 bg-red-50 border-b border-gray-50"
+                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 border-b border-gray-50"
                             >
                                 About Cabuyao
                             </a>
@@ -105,9 +162,9 @@ export default function About() {
                         </div>
                     </div>
 
-                    {/* Dropdown: Government */}
+                    {/* Dropdown: Government (ACTIVE STATE) */}
                     <div className="relative group py-4">
-                        <button className="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-red-600 transition">
+                        <button className="flex items-center gap-1 text-sm font-bold text-red-600 transition">
                             Government <ChevronDown size={14} />
                         </button>
                         <div className="absolute top-full left-0 mt-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
@@ -131,7 +188,7 @@ export default function About() {
                             </a>
                             <a
                                 href="/transparency"
-                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600"
+                                className="block px-4 py-3 text-sm font-bold text-red-600 bg-red-50"
                             >
                                 Transparency Seal
                             </a>
@@ -168,12 +225,6 @@ export default function About() {
                             >
                                 Health Services
                             </a>
-                            <a
-                                href="/login"
-                                className="block px-4 py-3 text-sm font-bold text-red-600 bg-red-50 hover:bg-red-100"
-                            >
-                                EvacTrack Login
-                            </a>
                         </div>
                     </div>
 
@@ -203,7 +254,7 @@ export default function About() {
                     </a>
                 </div>
 
-                {/* MOBILE MENU BUTTON (Hidden on desktop) */}
+                {/* MOBILE MENU BUTTON */}
                 <div className="xl:hidden flex items-center">
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -227,23 +278,23 @@ export default function About() {
                             Home
                         </a>
 
-                        {/* Expandable: The City (ACTIVE) */}
+                        {/* Expandable: The City */}
                         <div>
                             <button
                                 onClick={() => toggleMobileDropdown("city")}
-                                className="w-full px-6 py-4 flex items-center justify-between text-sm font-semibold text-red-600 bg-red-50 border-l-4 border-red-600 transition-colors"
+                                className="w-full px-6 py-4 flex items-center justify-between text-sm font-semibold text-gray-800 hover:text-red-600 transition-colors border-b border-gray-50"
                             >
                                 The City
                                 <ChevronDown
                                     size={18}
-                                    className={`transition-transform duration-300 ${openMobileDropdown === "city" ? "rotate-180 text-red-600" : "text-red-600"}`}
+                                    className={`transition-transform duration-300 ${openMobileDropdown === "city" ? "rotate-180 text-red-600" : "text-gray-400"}`}
                                 />
                             </button>
                             {openMobileDropdown === "city" && (
                                 <div className="bg-gray-50 flex flex-col py-2 border-b border-gray-100 shadow-inner">
                                     <a
                                         href="/about"
-                                        className="px-10 py-3 text-sm font-bold text-red-600 transition-colors"
+                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
                                     >
                                         About Cabuyao
                                     </a>
@@ -269,16 +320,16 @@ export default function About() {
                             )}
                         </div>
 
-                        {/* Expandable: Government */}
+                        {/* Expandable: Government (ACTIVE) */}
                         <div>
                             <button
                                 onClick={() => toggleMobileDropdown("gov")}
-                                className="w-full px-6 py-4 flex items-center justify-between text-sm font-semibold text-gray-800 hover:text-red-600 transition-colors border-b border-gray-50"
+                                className="w-full px-6 py-4 flex items-center justify-between text-sm font-semibold text-red-600 bg-red-50 border-l-4 border-red-600 transition-colors"
                             >
                                 Government
                                 <ChevronDown
                                     size={18}
-                                    className={`transition-transform duration-300 ${openMobileDropdown === "gov" ? "rotate-180 text-red-600" : "text-gray-400"}`}
+                                    className={`transition-transform duration-300 ${openMobileDropdown === "gov" ? "rotate-180 text-red-600" : "text-red-600"}`}
                                 />
                             </button>
                             {openMobileDropdown === "gov" && (
@@ -303,7 +354,7 @@ export default function About() {
                                     </a>
                                     <a
                                         href="/transparency"
-                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                                        className="px-10 py-3 text-sm font-bold text-red-600 transition-colors"
                                     >
                                         Transparency Seal
                                     </a>
@@ -378,186 +429,122 @@ export default function About() {
                         >
                             Contact
                         </a>
-                        <a
-                            href="/login"
-                            className="px-6 py-4 text-sm font-bold text-red-600 bg-red-50 hover:bg-red-100 transition-colors"
-                        >
-                            EvacTrack Login
-                        </a>
                     </div>
                 )}
             </nav>
 
-            {/* 3. ABOUT HERO BANNER */}
-            <div className="relative w-full h-[300px] md:h-[400px] flex items-center bg-gray-900 overflow-hidden">
+            {/* 3. HERO BANNER */}
+            <div className="relative w-full h-[250px] md:h-[350px] flex items-center bg-gray-900 overflow-hidden">
                 <div
                     className="absolute inset-0 bg-cover bg-center opacity-50"
                     style={{
-                        backgroundImage: "url('/images/cab-church.jpg')",
+                        backgroundImage: "url('/images/transparency.jpg')",
                     }}
                 />
                 <div className="relative z-10 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto w-full">
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-md">
-                        About Cabuyao
-                    </h2>
-                    <p className="text-lg md:text-xl text-gray-100 max-w-2xl drop-shadow-sm leading-relaxed">
-                        Discover the rich history, vibrant culture, and
-                        strategic vision of the Enterprise City of the
-                        Philippines.
+                    <div className="flex items-center gap-4 mb-4">
+                        <Award
+                            className="text-yellow-400"
+                            size={44}
+                            strokeWidth={2.5}
+                        />
+                        <h2 className="text-4xl md:text-5xl font-bold text-white drop-shadow-md">
+                            Transparency Seal
+                        </h2>
+                    </div>
+                    <p className="text-lg md:text-xl text-gray-100 max-w-2xl drop-shadow-sm leading-relaxed ml-[60px]">
+                        Full Disclosure Policy Portal. Ensuring accountability,
+                        good governance, and open access to the city's public
+                        documents.
                     </p>
                 </div>
             </div>
 
-            {/* 4. CITY PROFILE SECTION */}
-            <div className="max-w-7xl mx-auto px-6 py-20 lg:py-28">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    <div className="flex justify-center order-2 lg:order-1">
-                        <img
-                            src="/images/cab.png"
-                            alt="City of Cabuyao Seal"
-                            className="w-72 h-72 lg:w-96 lg:h-96 object-contain rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.15)] bg-white p-4"
-                            onError={(e) =>
-                                (e.target.src =
-                                    "https://via.placeholder.com/400?text=LOGO")
-                            }
-                        />
+            {/* 4. MAIN CONTENT AREA */}
+            <div className="max-w-7xl mx-auto px-6 py-16 lg:py-24">
+                {/* Introduction & Search Bar */}
+                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-12 border-b border-gray-200 pb-8">
+                    <div className="max-w-3xl">
+                        <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                            Full Disclosure Policy (FDP)
+                        </h3>
+                        <p className="text-gray-600 leading-relaxed text-lg">
+                            In compliance with DILG Memorandum Circulars, the
+                            City Government of Cabuyao provides public access to
+                            key financial documents, ensuring every citizen
+                            knows how public funds are managed and utilized.
+                        </p>
                     </div>
-                    <div className="order-1 lg:order-2">
-                        <div className="flex items-center gap-3 mb-6">
-                            <Map
-                                className="text-blue-700"
-                                size={36}
-                                strokeWidth={2}
-                            />
-                            <h2 className="text-3xl lg:text-4xl font-bold text-[#0f172a]">
-                                City Profile
-                            </h2>
-                        </div>
-                        <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
-                            <p>
-                                Cabuyao, officially the City of Cabuyao, is a
-                                1st class component city in the province of
-                                Laguna, Philippines. According to the 2020
-                                census, it has a population of 354,495 people.
-                            </p>
-                            <p>
-                                Known as the "Enterprise City of the
-                                Philippines," Cabuyao is home to a large
-                                populace of migrants working in the city's
-                                industrial estates. It houses several major
-                                industrial parks, making it a vital economic hub
-                                in the CALABARZON region.
-                            </p>
-                        </div>
+
+                    <div className="w-full lg:w-auto flex items-center bg-white rounded-xl shadow-sm border border-gray-200 px-4 py-2">
+                        <Search className="text-gray-400 mr-3" size={20} />
+                        <input
+                            type="text"
+                            placeholder="Search documents..."
+                            className="w-full lg:w-64 outline-none text-gray-700 bg-transparent py-2"
+                        />
                     </div>
                 </div>
-            </div>
 
-            {/* 5. VISION & MISSION SECTION */}
-            <div className="max-w-7xl mx-auto px-6 pb-24">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="bg-[#f0f5ff] rounded-3xl p-10 lg:p-12 relative overflow-hidden">
-                        <Eye
-                            className="absolute -right-8 -bottom-8 text-blue-600 opacity-10"
-                            size={200}
-                            strokeWidth={1}
-                        />
-                        <div className="relative z-10">
-                            <div className="w-14 h-14 bg-[#0e4b95] rounded-xl flex items-center justify-center mb-8 shadow-sm">
-                                <Eye
-                                    className="text-white"
-                                    size={28}
-                                    strokeWidth={2}
-                                />
+                {/* Documents Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    {DOCUMENTS.map((doc) => (
+                        <div
+                            key={doc.id}
+                            className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full group"
+                        >
+                            <div className="flex justify-between items-start mb-4">
+                                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <FileText
+                                        className="text-blue-600"
+                                        size={24}
+                                        strokeWidth={2}
+                                    />
+                                </div>
+                                <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                                    {doc.year}
+                                </span>
                             </div>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                                Our Vision
-                            </h3>
-                            <p className="text-gray-600 leading-relaxed text-lg">
-                                "A globally competitive, resilient, and
-                                sustainable Enterprise City of the Philippines,
-                                governed by transparent, accountable, and
-                                dynamic leaders, with God-loving, empowered, and
-                                healthy citizenry living in a safe and
-                                ecologically-balanced environment."
-                            </p>
-                        </div>
-                    </div>
 
-                    <div className="bg-[#fff1f2] rounded-3xl p-10 lg:p-12 relative overflow-hidden">
-                        <Target
-                            className="absolute -right-8 -bottom-8 text-red-600 opacity-10"
-                            size={200}
-                            strokeWidth={1}
-                        />
-                        <div className="relative z-10">
-                            <div className="w-14 h-14 bg-[#e11d48] rounded-xl flex items-center justify-center mb-8 shadow-sm">
-                                <Target
-                                    className="text-white"
-                                    size={28}
-                                    strokeWidth={2}
-                                />
+                            <div className="flex-grow">
+                                <p className="text-xs text-red-500 font-bold uppercase tracking-wider mb-2">
+                                    {doc.category}
+                                </p>
+                                <h4 className="text-lg font-bold text-gray-900 mb-4 leading-snug group-hover:text-blue-700 transition-colors">
+                                    {doc.title}
+                                </h4>
                             </div>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                                Our Mission
-                            </h3>
-                            <p className="text-gray-600 leading-relaxed text-lg">
-                                "To provide effective and efficient public
-                                services, promote inclusive economic growth,
-                                ensure environmental sustainability, and build
-                                disaster-resilient communities through active
-                                citizen participation and digital innovation."
-                            </p>
+
+                            <div className="mt-auto pt-4 border-t border-gray-50 flex items-center justify-between">
+                                <span className="text-sm text-gray-400 font-medium">
+                                    Size: {doc.size}
+                                </span>
+                                <button className="flex items-center gap-1.5 text-blue-600 font-bold text-sm bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-lg transition-colors">
+                                    <Download size={16} strokeWidth={2.5} />{" "}
+                                    Download
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    ))}
+                </div>
+
+                {/* Pagination / Load More */}
+                <div className="mt-12 text-center">
+                    <button className="bg-transparent border-2 border-gray-200 text-gray-600 font-bold px-8 py-3.5 rounded-xl hover:border-gray-900 hover:text-gray-900 transition-colors inline-flex items-center gap-2">
+                        Load More Documents
+                    </button>
                 </div>
             </div>
 
-            {/* 6. HISTORY SECTION */}
-            <div className="max-w-7xl mx-auto px-6 pb-32">
-                <div className="flex items-center gap-3 mb-8">
-                    <Clock
-                        className="text-blue-700"
-                        size={32}
-                        strokeWidth={2}
-                    />
-                    <h2 className="text-3xl font-bold text-[#0f172a]">
-                        History of Cabuyao
-                    </h2>
-                </div>
-                <div className="text-gray-600 text-lg leading-relaxed space-y-6">
-                    <p>
-                        The town of Cabuyao was once the center of the province
-                        of Laguna. It was formerly known as "Tabuco," a large
-                        territory that included the present-day cities of San
-                        Pedro, Biñan, Santa Rosa, and Calamba.
-                    </p>
-                    <p>
-                        The name "Cabuyao" is derived from the "Kabuyao" tree
-                        (Citrus macroptera), a citrus tree whose fruit was used
-                        by the natives as shampoo. Franciscan priests who
-                        arrived in the area noticed the abundance of these trees
-                        and eventually named the place after it.
-                    </p>
-                    <p>
-                        On August 4, 2012, Cabuyao was converted into a
-                        component city by virtue of Republic Act No. 10163,
-                        ratified through a plebiscite. Today, it stands as a
-                        testament to rapid urbanization and industrialization
-                        while maintaining its rich cultural heritage.
-                    </p>
-                </div>
-            </div>
-
-            {/* 7. FOOTER */}
+            {/* 5. FOOTER */}
             <footer className="bg-[#1E3A5F] text-white pt-16 pb-10 px-6 relative">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-                    {/* Brand */}
+                    {/* Brand Section */}
                     <div>
                         <div className="flex items-center gap-3 mb-6">
                             <img
                                 src="/images/cab.png"
-                                alt="Cabuyao Logo"
+                                alt="Logo"
                                 className="w-12 h-12 object-contain rounded-full border-2 border-red-500 p-0.5 bg-white"
                                 onError={(e) =>
                                     (e.target.style.display = "none")
@@ -683,7 +670,7 @@ export default function About() {
                         </ul>
                     </div>
 
-                    {/* Contact Us */}
+                    {/* Contact Us Section */}
                     <div>
                         <h4 className="font-bold text-lg mb-6">Contact Us</h4>
                         <ul className="space-y-5">
@@ -723,9 +710,10 @@ export default function About() {
                     </div>
                 </div>
 
+                {/* Bottom Copyright Bar */}
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between pt-8 border-t border-slate-700 text-xs text-gray-500">
                     <p className="text-[#60A5FA]">
-                        © 2026 Municipality of Cabuyao. All rights reserved.
+                        © 2026 City of Cabuyao. All rights reserved.
                     </p>
                     <p className="text-[#60A5FA]">
                         Powered by{" "}

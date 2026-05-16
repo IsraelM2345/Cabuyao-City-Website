@@ -18,8 +18,9 @@ import {
     PlaySquare,
     Camera,
     Hash,
-    Menu, // <-- Mobile Menu icon
-    X, // <-- Mobile X icon
+    Menu,
+    X,
+    ChevronDown,
 } from "lucide-react";
 
 // --- HERO CAROUSEL IMAGES ---
@@ -168,6 +169,9 @@ export default function Home() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
 
+    // NEW: State to track which mobile dropdown is currently open
+    const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
+
     // --- HERO CAROUSEL LOGIC ---
     useEffect(() => {
         const timer = setInterval(() => {
@@ -178,16 +182,18 @@ export default function Home() {
         return () => clearInterval(timer);
     }, []);
 
-    const nextSlide = () => {
+    const nextSlide = () =>
         setCurrentSlide((prev) =>
             prev === HERO_SLIDES.length - 1 ? 0 : prev + 1,
         );
-    };
-
-    const prevSlide = () => {
+    const prevSlide = () =>
         setCurrentSlide((prev) =>
             prev === 0 ? HERO_SLIDES.length - 1 : prev - 1,
         );
+
+    // --- HELPER FUNCTION FOR MOBILE ACCORDION ---
+    const toggleMobileDropdown = (menuName) => {
+        setOpenMobileDropdown((prev) => (prev === menuName ? null : menuName));
     };
 
     return (
@@ -206,7 +212,6 @@ export default function Home() {
             {/* 2. NAVIGATION BAR */}
             <nav className="w-full bg-white px-6 md:px-12 py-4 flex items-center justify-between shadow-sm sticky top-0 z-50">
                 <div className="flex items-center gap-3">
-                    {/* ACTUAL CITY LOGO */}
                     <img
                         src="/images/cab.png"
                         alt="City of Cabuyao Logo"
@@ -226,37 +231,122 @@ export default function Home() {
                     </div>
                 </div>
 
-                {/* DESKTOP MENU (Hidden on small screens) */}
-                <div className="hidden lg:flex items-center gap-8">
+                {/* DESKTOP MENU (WITH DROPDOWNS) */}
+                <div className="hidden xl:flex items-center gap-6">
                     <a
-                        href="#"
+                        href="/"
                         className="text-sm font-semibold text-red-600 bg-red-50 px-4 py-2 rounded-full"
                     >
                         Home
                     </a>
+
+                    <div className="relative group py-4">
+                        <button className="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-red-600 transition">
+                            The City <ChevronDown size={14} />
+                        </button>
+                        <div className="absolute top-full left-0 mt-0 w-48 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+                            <a
+                                href="/about"
+                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 border-b border-gray-50"
+                            >
+                                About Cabuyao
+                            </a>
+                            <a
+                                href="/accomplishments"
+                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 border-b border-gray-50"
+                            >
+                                Accomplishments
+                            </a>
+                            <a
+                                href="/tourism"
+                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 border-b border-gray-50"
+                            >
+                                Tourism & Landmarks
+                            </a>
+                            <a
+                                href="/gallery"
+                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600"
+                            >
+                                City Gallery
+                            </a>
+                        </div>
+                    </div>
+
+                    <div className="relative group py-4">
+                        <button className="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-red-600 transition">
+                            Government <ChevronDown size={14} />
+                        </button>
+                        <div className="absolute top-full left-0 mt-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+                            <a
+                                href="/mayor"
+                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 border-b border-gray-50"
+                            >
+                                Office of the Mayor
+                            </a>
+                            <a
+                                href="/council"
+                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 border-b border-gray-50"
+                            >
+                                Sangguniang Panlungsod
+                            </a>
+                            <a
+                                href="/departments"
+                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 border-b border-gray-50"
+                            >
+                                City Departments
+                            </a>
+                            <a
+                                href="/transparency"
+                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600"
+                            >
+                                Transparency Seal
+                            </a>
+                        </div>
+                    </div>
+
+                    <div className="relative group py-4">
+                        <button className="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-red-600 transition">
+                            E-Services <ChevronDown size={14} />
+                        </button>
+                        <div className="absolute top-full left-0 mt-0 w-52 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+                            <a
+                                href="/bplo"
+                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 border-b border-gray-50"
+                            >
+                                Business Permits (BPLO)
+                            </a>
+                            <a
+                                href="/peso"
+                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 border-b border-gray-50"
+                            >
+                                Job Openings (PESO)
+                            </a>
+                            <a
+                                href="/registry"
+                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 border-b border-gray-50"
+                            >
+                                Civil Registry
+                            </a>
+                            <a
+                                href="/health"
+                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 border-b border-gray-50"
+                            >
+                                Health Services
+                            </a>
+                        </div>
+                    </div>
+
                     <a
-                        href="/about"
+                        href="/drrm"
                         className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
                     >
-                        About
-                    </a>
-                    <a
-                        href="/departments"
-                        className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
-                    >
-                        Departments
+                        DRRM
                     </a>
                     <a
                         href="/news"
                         className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
                     >
                         News
-                    </a>
-                    <a
-                        href="/drrm"
-                        className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
-                    >
-                        DRRM
                     </a>
                     <a
                         href="/faqs"
@@ -270,16 +360,10 @@ export default function Home() {
                     >
                         Contact
                     </a>
-                    <a
-                        href="/login"
-                        className="bg-red-600 hover:bg-red-700 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition shadow-sm ml-4"
-                    >
-                        Evacuation Portal
-                    </a>
                 </div>
 
-                {/* MOBILE MENU BUTTON (Hidden on desktop) */}
-                <div className="lg:hidden flex items-center">
+                {/* MOBILE MENU BUTTON */}
+                <div className="xl:hidden flex items-center">
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         className="text-gray-800 hover:text-red-600 focus:outline-none transition-colors"
@@ -292,56 +376,166 @@ export default function Home() {
                     </button>
                 </div>
 
-                {/* MOBILE MENU DROPDOWN */}
+                {/* MOBILE MENU DROPDOWN (ACCORDION STYLE) */}
                 {isMobileMenuOpen && (
-                    <div className="absolute top-full left-0 w-full bg-white shadow-lg border-t border-gray-100 flex flex-col items-center py-6 gap-5 lg:hidden z-50">
+                    <div className="absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-100 flex flex-col xl:hidden z-50 max-h-[85vh] overflow-y-auto">
                         <a
                             href="/"
-                            className="text-sm font-semibold text-red-600 bg-red-50 px-6 py-2 rounded-full w-11/12 text-center"
+                            className="px-6 py-4 text-sm font-bold text-red-600 bg-red-50 border-l-4 border-red-600"
                         >
                             Home
                         </a>
-                        <a
-                            href="/about"
-                            className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
-                        >
-                            About
-                        </a>
-                        <a
-                            href="/departments"
-                            className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
-                        >
-                            Departments
-                        </a>
-                        <a
-                            href="/news"
-                            className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
-                        >
-                            News
-                        </a>
+
+                        {/* Expandable: The City */}
+                        <div>
+                            <button
+                                onClick={() => toggleMobileDropdown("city")}
+                                className="w-full px-6 py-4 flex items-center justify-between text-sm font-semibold text-gray-800 hover:text-red-600 transition-colors border-b border-gray-50"
+                            >
+                                The City
+                                <ChevronDown
+                                    size={18}
+                                    className={`transition-transform duration-300 ${openMobileDropdown === "city" ? "rotate-180 text-red-600" : "text-gray-400"}`}
+                                />
+                            </button>
+                            {openMobileDropdown === "city" && (
+                                <div className="bg-gray-50 flex flex-col py-2 border-b border-gray-100 shadow-inner">
+                                    <a
+                                        href="/about"
+                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                                    >
+                                        About Cabuyao
+                                    </a>
+                                    <a
+                                        href="/accomplishments"
+                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                                    >
+                                        Accomplishments
+                                    </a>
+                                    <a
+                                        href="/tourism"
+                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                                    >
+                                        Tourism & Landmarks
+                                    </a>
+                                    <a
+                                        href="/gallery"
+                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                                    >
+                                        City Gallery
+                                    </a>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Expandable: Government */}
+                        <div>
+                            <button
+                                onClick={() => toggleMobileDropdown("gov")}
+                                className="w-full px-6 py-4 flex items-center justify-between text-sm font-semibold text-gray-800 hover:text-red-600 transition-colors border-b border-gray-50"
+                            >
+                                Government
+                                <ChevronDown
+                                    size={18}
+                                    className={`transition-transform duration-300 ${openMobileDropdown === "gov" ? "rotate-180 text-red-600" : "text-gray-400"}`}
+                                />
+                            </button>
+                            {openMobileDropdown === "gov" && (
+                                <div className="bg-gray-50 flex flex-col py-2 border-b border-gray-100 shadow-inner">
+                                    <a
+                                        href="/mayor"
+                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                                    >
+                                        Office of the Mayor
+                                    </a>
+                                    <a
+                                        href="/council"
+                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                                    >
+                                        Sangguniang Panlungsod
+                                    </a>
+                                    <a
+                                        href="/departments"
+                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                                    >
+                                        City Departments
+                                    </a>
+                                    <a
+                                        href="/transparency"
+                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                                    >
+                                        Transparency Seal
+                                    </a>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Expandable: E-Services */}
+                        <div>
+                            <button
+                                onClick={() => toggleMobileDropdown("services")}
+                                className="w-full px-6 py-4 flex items-center justify-between text-sm font-semibold text-gray-800 hover:text-red-600 transition-colors border-b border-gray-50"
+                            >
+                                E-Services
+                                <ChevronDown
+                                    size={18}
+                                    className={`transition-transform duration-300 ${openMobileDropdown === "services" ? "rotate-180 text-red-600" : "text-gray-400"}`}
+                                />
+                            </button>
+                            {openMobileDropdown === "services" && (
+                                <div className="bg-gray-50 flex flex-col py-2 border-b border-gray-100 shadow-inner">
+                                    <a
+                                        href="/bplo"
+                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                                    >
+                                        Business Permits (BPLO)
+                                    </a>
+                                    <a
+                                        href="/peso"
+                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                                    >
+                                        Job Openings (PESO)
+                                    </a>
+                                    <a
+                                        href="/registry"
+                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                                    >
+                                        Civil Registry
+                                    </a>
+                                    <a
+                                        href="/health"
+                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                                    >
+                                        Health Services
+                                    </a>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Standalone Links */}
                         <a
                             href="/drrm"
-                            className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
+                            className="px-6 py-4 text-sm font-semibold text-gray-800 hover:text-red-600 border-b border-gray-50 transition-colors"
                         >
                             DRRM
                         </a>
                         <a
+                            href="/news"
+                            className="px-6 py-4 text-sm font-semibold text-gray-800 hover:text-red-600 border-b border-gray-50 transition-colors"
+                        >
+                            News
+                        </a>
+                        <a
                             href="/faqs"
-                            className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
+                            className="px-6 py-4 text-sm font-semibold text-gray-800 hover:text-red-600 border-b border-gray-50 transition-colors"
                         >
                             FAQs
                         </a>
                         <a
                             href="/contact"
-                            className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
+                            className="px-6 py-4 text-sm font-semibold text-gray-800 hover:text-red-600 transition-colors"
                         >
                             Contact
-                        </a>
-                        <a
-                            href="/login"
-                            className="bg-red-600 hover:bg-red-700 text-white text-sm font-medium px-6 py-3 rounded-lg transition shadow-sm w-11/12 text-center mt-2"
-                        >
-                            Evacuation Portal
                         </a>
                     </div>
                 )}
@@ -349,7 +543,6 @@ export default function Home() {
 
             {/* 3. HERO SECTION (DYNAMIC CAROUSEL) */}
             <div className="relative w-full h-[650px] bg-gray-900 flex items-center justify-center overflow-hidden group">
-                {/* DYNAMIC BACKGROUND IMAGES */}
                 {HERO_SLIDES.map((slide, index) => (
                     <div
                         key={index}
@@ -358,13 +551,10 @@ export default function Home() {
                                 ? "opacity-50 z-0"
                                 : "opacity-0 -z-10"
                         }`}
-                        style={{
-                            backgroundImage: `url('${slide}')`,
-                        }}
+                        style={{ backgroundImage: `url('${slide}')` }}
                     />
                 ))}
 
-                {/* LEFT ARROW */}
                 <button
                     onClick={prevSlide}
                     className="absolute left-4 md:left-6 top-[40%] md:top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-md flex items-center justify-center text-white border border-white/30 hover:scale-110 transition-all z-30 opacity-100 md:opacity-0 group-hover:opacity-100 focus:outline-none"
@@ -377,7 +567,6 @@ export default function Home() {
                     />
                 </button>
 
-                {/* RIGHT ARROW */}
                 <button
                     onClick={nextSlide}
                     className="absolute right-4 md:right-6 top-[40%] md:top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-md flex items-center justify-center text-white border border-white/30 hover:scale-110 transition-all z-30 opacity-100 md:opacity-0 group-hover:opacity-100 focus:outline-none"
@@ -390,7 +579,6 @@ export default function Home() {
                     />
                 </button>
 
-                {/* STATIC HERO TEXT */}
                 <div className="relative z-20 text-center px-4 max-w-4xl pointer-events-none mt-[-40px] md:mt-0">
                     <span className="inline-block px-5 py-2 rounded-full bg-white/10 backdrop-blur-md text-white text-xs md:text-sm font-semibold border border-white/20 mb-6 uppercase tracking-wider">
                         Bagong Cabuyao
@@ -415,7 +603,6 @@ export default function Home() {
                     </div>
                 </div>
 
-                {/* CLICKABLE DOT INDICATORS */}
                 <div className="absolute bottom-20 md:bottom-16 left-1/2 -translate-x-1/2 flex gap-3 z-30">
                     {HERO_SLIDES.map((_, index) => (
                         <button
@@ -431,7 +618,6 @@ export default function Home() {
                     ))}
                 </div>
 
-                {/* WHITE CURVE AT BOTTOM */}
                 <div className="absolute bottom-0 w-full h-12 md:h-16 bg-white rounded-t-[100%] scale-110 translate-y-6 md:translate-y-8 z-10" />
             </div>
 
@@ -551,10 +737,8 @@ export default function Home() {
                     </div>
                 </div>
 
-                {/* --- MAYOR CARD --- */}
                 <div className="rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row relative max-w-5xl mx-auto mb-60">
                     <div className="md:w-5/12 bg-[#1e293b] min-h-[450px] md:min-h-[500px] relative overflow-hidden">
-                        {/* ACTUAL MAYOR IMAGE */}
                         <img
                             src="/images/mayor.png"
                             alt="Hon. Dennis DenHa Hain"
@@ -591,11 +775,8 @@ export default function Home() {
                     </div>
                 </div>
 
-                {/* --- VICE MAYOR CARD --- */}
                 <div className="bg-white rounded-2xl shadow-xl border border-gray-100 px-6 pb-12 pt-8 max-w-3xl mx-auto -mt-24 relative z-10 flex flex-col items-center text-center mb-24">
-                    {/* AVATAR WRAPPER (Removed absolute positioning for exact spacing control) */}
                     <div className="w-32 h-32 rounded-full bg-white p-2 shadow-md overflow-hidden mb-4">
-                        {/* ACTUAL VICE MAYOR IMAGE */}
                         <img
                             src="/images/vice-mayor.jpg"
                             alt="Hon. Junjun Batallones"
@@ -606,21 +787,17 @@ export default function Home() {
                             }
                         />
                     </div>
-
                     <span className="bg-red-50 text-red-600 text-xs font-bold px-6 py-2 rounded-full mb-3 inline-block border border-red-100 uppercase tracking-wide">
                         Vice Mayor
                     </span>
-
                     <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
                         Hon. Batallones, Junjun
                     </h3>
-
                     <p className="text-gray-500 text-base">
                         Presiding Officer, Sangguniang Panlungsod
                     </p>
                 </div>
 
-                {/* Councilors */}
                 <div className="text-center mb-12 mt-12">
                     <h3 className="text-2xl font-bold text-gray-900 inline-block relative">
                         Sangguniang Panlungsod Members
@@ -633,7 +810,6 @@ export default function Home() {
                 </div>
 
                 <div className="relative max-w-7xl mx-auto px-12 md:px-16">
-                    {/* Left Arrow - Starts hidden because we are at the beginning */}
                     <button
                         id="btn-prev-councilor"
                         onClick={() => {
@@ -654,7 +830,6 @@ export default function Home() {
                         />
                     </button>
 
-                    {/* Slider Track */}
                     <div
                         id="councilor-slider"
                         className="flex overflow-x-auto gap-6 pb-8 pt-4 snap-x snap-mandatory scroll-smooth w-full"
@@ -669,7 +844,6 @@ export default function Home() {
                             const nextBtn =
                                 document.getElementById("btn-next-councilor");
 
-                            // 1. Check if we are at the very beginning
                             if (slider.scrollLeft <= 10) {
                                 prevBtn.classList.add(
                                     "opacity-0",
@@ -682,7 +856,6 @@ export default function Home() {
                                 );
                             }
 
-                            // 2. Check if we are at the very end
                             if (
                                 slider.scrollLeft + slider.clientWidth >=
                                 slider.scrollWidth - 10
@@ -731,7 +904,6 @@ export default function Home() {
                         ))}
                     </div>
 
-                    {/* Right Arrow - Starts visible */}
                     <button
                         id="btn-next-councilor"
                         onClick={() => {
@@ -754,101 +926,6 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* 7. ABOUT SECTION */}
-            <div className="bg-gray-50 pt-24 pb-36 border-t border-gray-200 px-6">
-                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    {/* --- LEFT SIDE: SINGLE TALL IMAGE --- */}
-                    <div className="rounded-3xl overflow-hidden relative shadow-lg h-[400px] lg:h-[650px] w-full bg-gray-200">
-                        {/* ACTUAL ABOUT IMAGE */}
-                        <img
-                            src="/images/about-cabuyao.jpg"
-                            className="w-full h-full object-fill object-center hover:scale-105 transition-transform duration-700"
-                            alt="City of Cabuyao Landmarks"
-                            onError={(e) =>
-                                (e.target.src =
-                                    "https://images.unsplash.com/photo-1541888062973-2e061dd31fb8?auto=format&fit=crop&q=80&w=800")
-                            }
-                        />
-                    </div>
-
-                    {/* --- RIGHT SIDE: TEXT & STATS --- */}
-                    <div>
-                        <span className="bg-red-50 text-red-600 text-xs font-bold px-4 py-1.5 rounded-full mb-6 inline-block">
-                            About Cabuyao
-                        </span>
-                        <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                            The City of{" "}
-                            <span className="text-red-600">Cabuyao</span>
-                        </h2>
-                        <p className="text-gray-600 mb-4 leading-relaxed text-lg">
-                            Cabuyao is a first-class component city in the
-                            province of Laguna, Philippines. Known as the
-                            "Gateway to CALABARZON," it is one of the most
-                            progressive cities in the region, home to numerous
-                            industrial parks and economic zones.
-                        </p>
-                        <p className="text-gray-600 mb-10 leading-relaxed text-lg">
-                            Under the leadership of Mayor Dennis "DenHa" Hain,
-                            the city continues to pursue sustainable development
-                            while ensuring that the benefits of progress reach
-                            every Cabuyeño through the "Pera ng Bayan, Ibalik sa
-                            Mamamayan" program.
-                        </p>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
-                            <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
-                                <div className="flex items-center gap-2 text-red-500 mb-2">
-                                    <Users size={20} />{" "}
-                                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                                        Population
-                                    </span>
-                                </div>
-                                <p className="text-3xl font-black text-gray-900">
-                                    355,330+
-                                </p>
-                            </div>
-                            <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
-                                <div className="flex items-center gap-2 text-blue-500 mb-2">
-                                    <MapPin size={20} />{" "}
-                                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                                        Land Area
-                                    </span>
-                                </div>
-                                <p className="text-3xl font-black text-gray-900">
-                                    43.40 km²
-                                </p>
-                            </div>
-                            <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
-                                <div className="flex items-center gap-2 text-green-500 mb-2">
-                                    <Building size={20} />{" "}
-                                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                                        Barangays
-                                    </span>
-                                </div>
-                                <p className="text-3xl font-black text-gray-900">
-                                    18
-                                </p>
-                            </div>
-                            <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
-                                <div className="flex items-center gap-2 text-purple-500 mb-2">
-                                    <Mail size={20} />{" "}
-                                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                                        Zip Code
-                                    </span>
-                                </div>
-                                <p className="text-3xl font-black text-gray-900">
-                                    4025
-                                </p>
-                            </div>
-                        </div>
-
-                        <button className="bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-4 rounded-xl transition shadow-md flex items-center justify-center w-full sm:w-auto gap-2 text-lg">
-                            Learn More About Cabuyao <ArrowRight size={20} />
-                        </button>
-                    </div>
-                </div>
-            </div>
-
             {/* 8. CITY INFORMATION OFFICE BANNER */}
             <div className="relative z-20 px-6 -mt-20 mb-24 w-full flex justify-center">
                 <div className="w-full max-w-5xl group">
@@ -863,15 +940,12 @@ export default function Home() {
 
             {/* 9. FOOTER */}
             <footer className="bg-[#1E3A5F] text-white pt-16 pb-10 px-6 relative">
-                {/* --- FLOATING BANNER LOGOS --- */}
                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-                    {/* Brand */}
                     <div>
                         <div className="flex items-center gap-3 mb-6">
-                            {/* ACTUAL FOOTER LOGO */}
                             <img
                                 src="/images/cab.png"
-                                alt="Cabuyao Logo"
+                                alt="Logo"
                                 className="w-12 h-12 object-contain rounded-full border-2 border-red-500 p-0.5 bg-white"
                                 onError={(e) =>
                                     (e.target.style.display = "none")
@@ -885,9 +959,7 @@ export default function Home() {
                         </div>
                         <p className="text-sm text-gray-400 leading-relaxed mb-6">
                             Province of Laguna. Committed to transparent
-                            governance and public service. Building a
-                            progressive and sustainable community for every
-                            Cabuyeño.
+                            governance and public service.
                         </p>
                         <div className="flex items-center gap-3">
                             <a
@@ -949,7 +1021,6 @@ export default function Home() {
                         </div>
                     </div>
 
-                    {/* Quick Links */}
                     <div>
                         <h4 className="font-bold text-lg mb-6">Quick Links</h4>
                         <ul className="space-y-4">
@@ -973,7 +1044,6 @@ export default function Home() {
                         </ul>
                     </div>
 
-                    {/* Services */}
                     <div>
                         <h4 className="font-bold text-lg mb-6">Services</h4>
                         <ul className="space-y-4">
@@ -997,7 +1067,6 @@ export default function Home() {
                         </ul>
                     </div>
 
-                    {/* Contact Us */}
                     <div>
                         <h4 className="font-bold text-lg mb-6">Contact Us</h4>
                         <ul className="space-y-5">
@@ -1049,7 +1118,6 @@ export default function Home() {
                     </p>
                 </div>
 
-                {/* Bottom Color Bar */}
                 <div className="absolute bottom-0 left-0 w-full h-1.5 flex">
                     <div className="w-1/3 h-full bg-blue-600"></div>
                     <div className="w-1/3 h-full bg-yellow-400"></div>

@@ -6,17 +6,99 @@ import {
     Globe,
     Menu,
     X,
-    Map,
-    Eye,
-    Target,
-    Clock,
-    Users,
-    Building,
+    Trophy,
+    CheckCircle,
+    Star,
+    TrendingUp,
+    Building2,
     ArrowRight,
     ChevronDown,
 } from "lucide-react";
 
-export default function About() {
+// --- ACCOMPLISHMENTS DATA ---
+const STATS = [
+    {
+        label: "Infrastructure Projects",
+        value: "150+",
+        icon: Building2,
+        color: "text-blue-600",
+        bg: "bg-blue-50",
+    },
+    {
+        label: "Scholars Supported",
+        value: "12,500",
+        icon: Star,
+        color: "text-yellow-600",
+        bg: "bg-yellow-50",
+    },
+    {
+        label: "Jobs Generated",
+        value: "8,300+",
+        icon: TrendingUp,
+        color: "text-green-600",
+        bg: "bg-green-50",
+    },
+    {
+        label: "Health Missions",
+        value: "240",
+        icon: CheckCircle,
+        color: "text-red-600",
+        bg: "bg-red-50",
+    },
+];
+
+const PROJECTS = [
+    {
+        id: 1,
+        title: "New Cabuyao City Hospital Wing",
+        category: "Healthcare",
+        date: "Completed December 2025",
+        desc: "A state-of-the-art 5-story facility equipped with modern operating rooms, intensive care units, and a dedicated pediatric ward to serve more Cabuyeños.",
+        image: "/images/hospital.jpg",
+    },
+    {
+        id: 2,
+        title: "Banay-Banay Road Widening & Drainage",
+        category: "Infrastructure",
+        date: "Completed October 2025",
+        desc: "Expansion of the main arterial road from 2 to 4 lanes, including the installation of a high-capacity flood control drainage system.",
+        image: "/images/road-project.jpg",
+    },
+    {
+        id: 3,
+        title: "Cabuyao Central Public Market Modernization",
+        category: "Economic Development",
+        date: "Completed August 2025",
+        desc: "Complete renovation of the public market with improved sanitation facilities, better ventilation, and an organized zoning system for vendors.",
+        image: "/images/market-project.jpg",
+    },
+    {
+        id: 4,
+        title: "Barangay Sala Smart Command Center",
+        category: "Safety & Security",
+        date: "Completed June 2025",
+        desc: "Installation of 150 high-definition CCTV cameras linked to a centralized 24/7 monitoring hub to ensure rapid emergency response.",
+        image: "/images/cctv-project.jpg",
+    },
+    {
+        id: 5,
+        title: "City Plaza Solar Lighting Initiative",
+        category: "Environment",
+        date: "Completed March 2025",
+        desc: "Transitioned all public parks and major streets to 100% renewable solar streetlights, significantly reducing the city's carbon footprint.",
+        image: "/images/solar-project.jpg",
+    },
+    {
+        id: 6,
+        title: "Cabuyao Athletes' Training Hub",
+        category: "Sports & Youth",
+        date: "Completed January 2025",
+        desc: "A multi-purpose sports complex featuring an Olympic-sized swimming pool, rubberized track oval, and indoor basketball courts.",
+        image: "/images/sports-project.jpg",
+    },
+];
+
+export default function Accomplishments() {
     // --- STATES ---
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -29,7 +111,7 @@ export default function About() {
     };
 
     return (
-        <div className="min-h-screen bg-white font-sans text-gray-800">
+        <div className="min-h-screen bg-gray-50 font-sans text-gray-800">
             {/* 1. TOP BAR */}
             <div
                 className="w-full h-8 flex items-center px-6 text-white text-xs font-medium"
@@ -64,7 +146,7 @@ export default function About() {
                 </div>
 
                 {/* DESKTOP MENU */}
-                <div className="hidden xl:flex items-center gap-6">
+                <div className="hidden xl:flex items-center gap-8">
                     <a
                         href="/"
                         className="text-sm font-medium text-gray-600 hover:text-red-600 transition"
@@ -80,13 +162,13 @@ export default function About() {
                         <div className="absolute top-full left-0 mt-0 w-48 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
                             <a
                                 href="/about"
-                                className="block px-4 py-3 text-sm font-bold text-red-600 bg-red-50 border-b border-gray-50"
+                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 border-b border-gray-50"
                             >
                                 About Cabuyao
                             </a>
                             <a
                                 href="/accomplishments"
-                                className="block px-4 py-3 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 border-b border-gray-50"
+                                className="block px-4 py-3 text-sm font-bold text-red-600 bg-red-50 border-b border-gray-50"
                             >
                                 Accomplishments
                             </a>
@@ -168,12 +250,6 @@ export default function About() {
                             >
                                 Health Services
                             </a>
-                            <a
-                                href="/login"
-                                className="block px-4 py-3 text-sm font-bold text-red-600 bg-red-50 hover:bg-red-100"
-                            >
-                                EvacTrack Login
-                            </a>
                         </div>
                     </div>
 
@@ -243,13 +319,13 @@ export default function About() {
                                 <div className="bg-gray-50 flex flex-col py-2 border-b border-gray-100 shadow-inner">
                                     <a
                                         href="/about"
-                                        className="px-10 py-3 text-sm font-bold text-red-600 transition-colors"
+                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
                                     >
                                         About Cabuyao
                                     </a>
                                     <a
                                         href="/accomplishments"
-                                        className="px-10 py-3 text-sm text-gray-600 hover:text-red-600 transition-colors"
+                                        className="px-10 py-3 text-sm font-bold text-red-600 transition-colors"
                                     >
                                         Accomplishments
                                     </a>
@@ -374,183 +450,144 @@ export default function About() {
                         </a>
                         <a
                             href="/contact"
-                            className="px-6 py-4 text-sm font-semibold text-gray-800 hover:text-red-600 transition-colors"
+                            className="px-6 py-4 text-sm font-semibold text-gray-800 hover:text-red-600 border-b border-gray-50 transition-colors"
                         >
                             Contact
-                        </a>
-                        <a
-                            href="/login"
-                            className="px-6 py-4 text-sm font-bold text-red-600 bg-red-50 hover:bg-red-100 transition-colors"
-                        >
-                            EvacTrack Login
                         </a>
                     </div>
                 )}
             </nav>
 
-            {/* 3. ABOUT HERO BANNER */}
-            <div className="relative w-full h-[300px] md:h-[400px] flex items-center bg-gray-900 overflow-hidden">
+            {/* 3. HERO BANNER */}
+            <div className="relative w-full h-[250px] md:h-[350px] flex items-center bg-gray-900 overflow-hidden">
                 <div
                     className="absolute inset-0 bg-cover bg-center opacity-50"
                     style={{
-                        backgroundImage: "url('/images/cab-church.jpg')",
-                    }}
+                        backgroundImage: "url('/images/accomplishment.jpg')",
+                    }} // E.g., ribbon cutting or city skyline
                 />
                 <div className="relative z-10 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto w-full">
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-md">
-                        About Cabuyao
-                    </h2>
-                    <p className="text-lg md:text-xl text-gray-100 max-w-2xl drop-shadow-sm leading-relaxed">
-                        Discover the rich history, vibrant culture, and
-                        strategic vision of the Enterprise City of the
-                        Philippines.
+                    <div className="flex items-center gap-4 mb-4">
+                        <Trophy
+                            className="text-yellow-400"
+                            size={44}
+                            strokeWidth={2.5}
+                        />
+                        <h2 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">
+                            Accomplishments
+                        </h2>
+                    </div>
+                    <p className="text-lg md:text-xl text-gray-100 max-w-2xl drop-shadow-md leading-relaxed ml-[60px]">
+                        Pera ng Bayan, Ibalik sa Mamamayan. Explore the
+                        completed projects and milestones driving Cabuyao
+                        forward.
                     </p>
                 </div>
             </div>
 
-            {/* 4. CITY PROFILE SECTION */}
-            <div className="max-w-7xl mx-auto px-6 py-20 lg:py-28">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    <div className="flex justify-center order-2 lg:order-1">
-                        <img
-                            src="/images/cab.png"
-                            alt="City of Cabuyao Seal"
-                            className="w-72 h-72 lg:w-96 lg:h-96 object-contain rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.15)] bg-white p-4"
-                            onError={(e) =>
-                                (e.target.src =
-                                    "https://via.placeholder.com/400?text=LOGO")
-                            }
-                        />
-                    </div>
-                    <div className="order-1 lg:order-2">
-                        <div className="flex items-center gap-3 mb-6">
-                            <Map
-                                className="text-blue-700"
-                                size={36}
-                                strokeWidth={2}
-                            />
-                            <h2 className="text-3xl lg:text-4xl font-bold text-[#0f172a]">
-                                City Profile
-                            </h2>
-                        </div>
-                        <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
-                            <p>
-                                Cabuyao, officially the City of Cabuyao, is a
-                                1st class component city in the province of
-                                Laguna, Philippines. According to the 2020
-                                census, it has a population of 354,495 people.
-                            </p>
-                            <p>
-                                Known as the "Enterprise City of the
-                                Philippines," Cabuyao is home to a large
-                                populace of migrants working in the city's
-                                industrial estates. It houses several major
-                                industrial parks, making it a vital economic hub
-                                in the CALABARZON region.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* 5. VISION & MISSION SECTION */}
-            <div className="max-w-7xl mx-auto px-6 pb-24">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="bg-[#f0f5ff] rounded-3xl p-10 lg:p-12 relative overflow-hidden">
-                        <Eye
-                            className="absolute -right-8 -bottom-8 text-blue-600 opacity-10"
-                            size={200}
-                            strokeWidth={1}
-                        />
-                        <div className="relative z-10">
-                            <div className="w-14 h-14 bg-[#0e4b95] rounded-xl flex items-center justify-center mb-8 shadow-sm">
-                                <Eye
-                                    className="text-white"
-                                    size={28}
-                                    strokeWidth={2}
-                                />
+            {/* 4. MAIN CONTENT AREA */}
+            <div className="max-w-7xl mx-auto px-6 py-16 lg:py-24">
+                {/* Metrics/Stats Row */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-20">
+                    {STATS.map((stat, idx) => (
+                        <div
+                            key={idx}
+                            className="bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-sm flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300"
+                        >
+                            <div
+                                className={`w-14 h-14 rounded-full ${stat.bg} ${stat.color} flex items-center justify-center mb-4`}
+                            >
+                                <stat.icon size={28} strokeWidth={2} />
                             </div>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                                Our Vision
-                            </h3>
-                            <p className="text-gray-600 leading-relaxed text-lg">
-                                "A globally competitive, resilient, and
-                                sustainable Enterprise City of the Philippines,
-                                governed by transparent, accountable, and
-                                dynamic leaders, with God-loving, empowered, and
-                                healthy citizenry living in a safe and
-                                ecologically-balanced environment."
+                            <h4 className="text-3xl md:text-4xl font-black text-gray-900 mb-1">
+                                {stat.value}
+                            </h4>
+                            <p className="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-wide">
+                                {stat.label}
                             </p>
                         </div>
-                    </div>
+                    ))}
+                </div>
 
-                    <div className="bg-[#fff1f2] rounded-3xl p-10 lg:p-12 relative overflow-hidden">
-                        <Target
-                            className="absolute -right-8 -bottom-8 text-red-600 opacity-10"
-                            size={200}
-                            strokeWidth={1}
-                        />
-                        <div className="relative z-10">
-                            <div className="w-14 h-14 bg-[#e11d48] rounded-xl flex items-center justify-center mb-8 shadow-sm">
-                                <Target
-                                    className="text-white"
-                                    size={28}
-                                    strokeWidth={2}
+                {/* Projects Grid */}
+                <div className="text-center mb-12">
+                    <h3 className="text-3xl font-bold text-gray-900 mb-3 relative inline-block">
+                        Featured Projects
+                        <div className="flex h-1 w-24 absolute -bottom-4 left-1/2 -translate-x-1/2">
+                            <div className="w-1/3 h-full bg-blue-600"></div>
+                            <div className="w-1/3 h-full bg-yellow-400"></div>
+                            <div className="w-1/3 h-full bg-red-600"></div>
+                        </div>
+                    </h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {PROJECTS.map((project) => (
+                        <div
+                            key={project.id}
+                            className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 group flex flex-col h-full"
+                        >
+                            {/* Project Image */}
+                            <div className="w-full h-56 relative overflow-hidden bg-gray-200">
+                                <img
+                                    src={project.image}
+                                    alt={project.title}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    onError={(e) =>
+                                        (e.target.src =
+                                            "https://images.unsplash.com/photo-1541888062973-2e061dd31fb8?auto=format&fit=crop&q=80&w=800")
+                                    }
                                 />
+                                {/* Category Badge overlapping image */}
+                                <div className="absolute top-4 left-4">
+                                    <span className="bg-white/90 backdrop-blur text-blue-800 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
+                                        {project.category}
+                                    </span>
+                                </div>
                             </div>
-                            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                                Our Mission
-                            </h3>
-                            <p className="text-gray-600 leading-relaxed text-lg">
-                                "To provide effective and efficient public
-                                services, promote inclusive economic growth,
-                                ensure environmental sustainability, and build
-                                disaster-resilient communities through active
-                                citizen participation and digital innovation."
-                            </p>
+
+                            {/* Project Content */}
+                            <div className="p-8 flex flex-col flex-grow">
+                                <div className="flex items-center gap-2 text-green-600 mb-3">
+                                    <CheckCircle size={16} strokeWidth={2.5} />
+                                    <span className="text-xs font-bold uppercase tracking-wider">
+                                        {project.date}
+                                    </span>
+                                </div>
+
+                                <h4 className="text-xl font-bold text-gray-900 mb-4 leading-tight group-hover:text-blue-700 transition-colors line-clamp-2">
+                                    {project.title}
+                                </h4>
+
+                                <p className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">
+                                    {project.desc}
+                                </p>
+
+                                {/* Push button to bottom */}
+                                <div className="mt-auto">
+                                    <button className="text-gray-900 font-bold text-sm flex items-center gap-1 hover:text-blue-600 transition-colors w-max group/btn">
+                                        View Details{" "}
+                                        <ArrowRight
+                                            size={16}
+                                            className="group-hover/btn:translate-x-1 transition-transform"
+                                        />
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    ))}
+                </div>
+
+                {/* View All Button */}
+                <div className="text-center mt-16">
+                    <button className="bg-transparent border-2 border-gray-200 text-gray-600 font-bold px-8 py-3.5 rounded-xl hover:border-gray-900 hover:text-gray-900 transition-colors inline-flex items-center gap-2">
+                        View All Completed Projects
+                    </button>
                 </div>
             </div>
 
-            {/* 6. HISTORY SECTION */}
-            <div className="max-w-7xl mx-auto px-6 pb-32">
-                <div className="flex items-center gap-3 mb-8">
-                    <Clock
-                        className="text-blue-700"
-                        size={32}
-                        strokeWidth={2}
-                    />
-                    <h2 className="text-3xl font-bold text-[#0f172a]">
-                        History of Cabuyao
-                    </h2>
-                </div>
-                <div className="text-gray-600 text-lg leading-relaxed space-y-6">
-                    <p>
-                        The town of Cabuyao was once the center of the province
-                        of Laguna. It was formerly known as "Tabuco," a large
-                        territory that included the present-day cities of San
-                        Pedro, Biñan, Santa Rosa, and Calamba.
-                    </p>
-                    <p>
-                        The name "Cabuyao" is derived from the "Kabuyao" tree
-                        (Citrus macroptera), a citrus tree whose fruit was used
-                        by the natives as shampoo. Franciscan priests who
-                        arrived in the area noticed the abundance of these trees
-                        and eventually named the place after it.
-                    </p>
-                    <p>
-                        On August 4, 2012, Cabuyao was converted into a
-                        component city by virtue of Republic Act No. 10163,
-                        ratified through a plebiscite. Today, it stands as a
-                        testament to rapid urbanization and industrialization
-                        while maintaining its rich cultural heritage.
-                    </p>
-                </div>
-            </div>
-
-            {/* 7. FOOTER */}
-            <footer className="bg-[#1E3A5F] text-white pt-16 pb-10 px-6 relative">
+            {/* 5. FOOTER */}
+            <footer className="bg-[#1E3A5F] text-white pt-16 pb-10 px-6 relative mt-10">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                     {/* Brand */}
                     <div>
