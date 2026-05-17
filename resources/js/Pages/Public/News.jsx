@@ -12,6 +12,7 @@ import {
     ChevronLeft,
     ChevronRight,
     ChevronDown,
+    Search,
 } from "lucide-react";
 
 // --- NEWS DATA ---
@@ -19,7 +20,7 @@ const NEWS_ARTICLES = [
     {
         id: 1,
         category: "Technology",
-        date: "May 15, 2025",
+        date: "May 15, 2026",
         title: "City Government Launches New E-Governance Portal",
         excerpt:
             "The City of Cabuyao officially launches its integrated web portal to streamline public services and disaster management operations. The new system aims to provide faster transactions and improved accessibility for all Cabuyeños.",
@@ -28,7 +29,7 @@ const NEWS_ARTICLES = [
     {
         id: 2,
         category: "DRRM",
-        date: "May 10, 2025",
+        date: "May 10, 2026",
         title: "Pre-Emptive Evacuation Guidelines Released for Typhoon Season",
         excerpt:
             "CDRRMO releases updated guidelines and designated evacuation centers in preparation for the upcoming typhoon season. Residents in low-lying areas are advised to register their households immediately.",
@@ -37,7 +38,7 @@ const NEWS_ARTICLES = [
     {
         id: 3,
         category: "Business",
-        date: "May 05, 2025",
+        date: "May 05, 2026",
         title: "Business Permit Renewal Deadline Extended",
         excerpt:
             "The City Mayor has approved the extension of business permit renewals without penalties until the end of the month to accommodate the transition to the new online payment system.",
@@ -46,7 +47,7 @@ const NEWS_ARTICLES = [
     {
         id: 4,
         category: "Health",
-        date: "April 28, 2025",
+        date: "April 28, 2026",
         title: "City Health Office Conducts Free Medical Mission",
         excerpt:
             "Over 500 residents benefited from the free medical and dental mission conducted by the City Health Office in Barangay Banay-Banay last weekend, providing essential care to the community.",
@@ -55,7 +56,7 @@ const NEWS_ARTICLES = [
     {
         id: 5,
         category: "Education",
-        date: "April 20, 2025",
+        date: "April 20, 2026",
         title: "New Scholarship Grants Open for College Students",
         excerpt:
             "The City Government is now accepting applications for the Iskolar ng Cabuyao program for the academic year 2026-2027. Apply online through the E-Governance portal.",
@@ -76,6 +77,8 @@ export default function News() {
     // --- STATES ---
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeCategory, setActiveCategory] = useState("All");
+    const [searchQuery, setSearchQuery] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
 
     // State to track which mobile dropdown is currently open
     const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
@@ -84,6 +87,17 @@ export default function News() {
     const toggleMobileDropdown = (menuName) => {
         setOpenMobileDropdown((prev) => (prev === menuName ? null : menuName));
     };
+
+    // --- FILTER LOGIC ---
+    const filteredNews = NEWS_ARTICLES.filter((article) => {
+        const matchesCategory =
+            activeCategory === "All" || article.category === activeCategory;
+        const matchesSearch =
+            article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+
+        return matchesCategory && matchesSearch;
+    });
 
     return (
         <div className="min-h-screen bg-gray-50 font-sans text-gray-800">
@@ -255,7 +269,7 @@ export default function News() {
                     </a>
                 </div>
 
-                {/* MOBILE MENU BUTTON */}
+                {/* MOBILE MENU BUTTON (Hidden on desktop) */}
                 <div className="xl:hidden flex items-center">
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -405,7 +419,7 @@ export default function News() {
                             )}
                         </div>
 
-                        {/* Standalone Links (News is ACTIVE) */}
+                        {/* Standalone Links */}
                         <a
                             href="/drrm"
                             className="px-6 py-4 text-sm font-semibold text-gray-800 hover:text-red-600 border-b border-gray-50 transition-colors"
@@ -457,25 +471,32 @@ export default function News() {
 
             {/* 4. MAIN CONTENT AREA */}
             <div className="max-w-7xl mx-auto px-6 py-12 lg:py-16">
-                {/* Search and Filters */}
-                <div className="flex flex-col md:flex-row gap-6 items-center justify-between bg-white p-4 lg:p-6 rounded-2xl shadow-sm border border-gray-100 mb-10">
-                    <div className="w-full md:w-1/3">
+                {/* MATCHED DESIGN: Search and Filters side-by-side */}
+                <div className="flex flex-col xl:flex-row gap-4 items-center justify-between mb-10 w-full">
+                    {/* Search Bar */}
+                    <div className="w-full xl:max-w-md relative flex-shrink-0">
                         <input
                             type="text"
                             placeholder="Search news..."
-                            className="w-full px-4 py-2.5 rounded-xl bg-gray-50 border border-gray-100 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-sm text-gray-800 placeholder-gray-400"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full px-5 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-sm text-gray-800 placeholder-gray-400"
                         />
                     </div>
 
-                    <div className="w-full md:w-2/3 flex overflow-x-auto gap-2 pb-2 md:pb-0 justify-start md:justify-end no-scrollbar">
+                    {/* Category Buttons */}
+                    <div className="w-full flex overflow-x-auto gap-2 pb-2 xl:pb-0 items-center no-scrollbar">
                         {CATEGORIES.map((cat) => (
                             <button
                                 key={cat}
-                                onClick={() => setActiveCategory(cat)}
-                                className={`px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap transition-colors ${
+                                onClick={() => {
+                                    setActiveCategory(cat);
+                                    setCurrentPage(1); // Reset pagination on filter
+                                }}
+                                className={`px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition-colors ${
                                     activeCategory === cat
                                         ? "bg-[#0f4a96] text-white"
-                                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                                 }`}
                             >
                                 {cat}
@@ -486,85 +507,123 @@ export default function News() {
 
                 {/* News List */}
                 <div className="space-y-8">
-                    {NEWS_ARTICLES.map((article) => (
-                        <div
-                            key={article.id}
-                            className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row group cursor-pointer"
-                        >
-                            {/* Article Image - FIXED UNIFORM SIZE */}
-                            <div className="w-full md:w-[320px] lg:w-[400px] h-60 md:h-[280px] flex-shrink-0 relative overflow-hidden bg-gray-100">
-                                <img
-                                    src={article.image}
-                                    alt={article.title}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                    onError={(e) =>
-                                        (e.target.src =
-                                            "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&q=80&w=800")
-                                    }
-                                />
-                            </div>
-
-                            {/* Article Content */}
-                            <div className="p-6 md:p-8 flex flex-col flex-grow">
-                                <div className="flex items-center gap-4 mb-3">
-                                    <span className="flex items-center gap-1.5 text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-md">
-                                        <Tag size={12} strokeWidth={2.5} />{" "}
-                                        {article.category}
-                                    </span>
-                                    <span className="flex items-center gap-1.5 text-xs font-medium text-gray-500">
-                                        <Calendar size={14} /> {article.date}
-                                    </span>
+                    {filteredNews.length > 0 ? (
+                        filteredNews.map((article) => (
+                            <div
+                                key={article.id}
+                                className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row group cursor-pointer"
+                            >
+                                {/* Article Image - FIXED UNIFORM SIZE */}
+                                <div className="w-full md:w-[320px] lg:w-[400px] h-60 md:h-[280px] flex-shrink-0 relative overflow-hidden bg-gray-100">
+                                    <img
+                                        src={article.image}
+                                        alt={article.title}
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        onError={(e) =>
+                                            (e.target.src =
+                                                "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&q=80&w=800")
+                                        }
+                                    />
                                 </div>
 
-                                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-700 transition-colors leading-tight line-clamp-2">
-                                    {article.title}
-                                </h3>
+                                {/* Article Content */}
+                                <div className="p-6 md:p-8 flex flex-col flex-grow">
+                                    <div className="flex items-center gap-4 mb-3">
+                                        <span className="flex items-center gap-1.5 text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-md">
+                                            <Tag size={12} strokeWidth={2.5} />{" "}
+                                            {article.category}
+                                        </span>
+                                        <span className="flex items-center gap-1.5 text-xs font-medium text-gray-500">
+                                            <Calendar size={14} />{" "}
+                                            {article.date}
+                                        </span>
+                                    </div>
 
-                                <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-3">
-                                    {article.excerpt}
-                                </p>
+                                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-700 transition-colors leading-tight line-clamp-2">
+                                        {article.title}
+                                    </h3>
 
-                                {/* mt-auto pushes the button to the bottom, ensuring equal alignment */}
-                                <div className="mt-auto pt-2">
-                                    <a
-                                        href="#"
-                                        className="text-[#0f4a96] font-bold text-sm flex items-center gap-1.5 group-hover:gap-2 transition-all w-max"
-                                    >
-                                        Read Full Article{" "}
-                                        <ArrowRight
-                                            size={16}
-                                            strokeWidth={2.5}
-                                        />
-                                    </a>
+                                    <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-3">
+                                        {article.excerpt}
+                                    </p>
+
+                                    {/* mt-auto pushes the button to the bottom, ensuring equal alignment */}
+                                    <div className="mt-auto pt-2">
+                                        <a
+                                            href={`/news/${article.id}`}
+                                            className="text-[#0f4a96] font-bold text-sm flex items-center gap-1.5 group-hover:gap-2 transition-all w-max"
+                                        >
+                                            Read Full Article{" "}
+                                            <ArrowRight
+                                                size={16}
+                                                strokeWidth={2.5}
+                                            />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
+                        ))
+                    ) : (
+                        <div className="text-center py-20 bg-white rounded-3xl border border-gray-100 shadow-sm">
+                            <Search
+                                className="mx-auto text-gray-300 mb-4"
+                                size={48}
+                                strokeWidth={1.5}
+                            />
+                            <h3 className="text-xl font-bold text-gray-800 mb-2">
+                                No results found
+                            </h3>
+                            <p className="text-gray-500">
+                                We couldn't find any news articles matching your
+                                search.
+                            </p>
+                            <button
+                                onClick={() => {
+                                    setSearchQuery("");
+                                    setActiveCategory("All");
+                                }}
+                                className="mt-6 bg-blue-50 text-blue-600 font-bold px-6 py-2.5 rounded-xl hover:bg-blue-100 transition-colors"
+                            >
+                                Clear Filters
+                            </button>
                         </div>
-                    ))}
+                    )}
                 </div>
 
-                {/* Pagination */}
-                <div className="mt-16 flex justify-center items-center gap-2">
-                    <button
-                        className="flex items-center justify-center w-10 h-10 rounded-lg text-gray-400 hover:bg-gray-100 transition-colors"
-                        disabled
-                    >
-                        <ChevronLeft size={20} />
-                    </button>
+                {/* Pagination (Functional UI mapping) */}
+                {filteredNews.length > 0 && (
+                    <div className="mt-16 flex justify-center items-center gap-2">
+                        <button
+                            onClick={() =>
+                                setCurrentPage((prev) => Math.max(prev - 1, 1))
+                            }
+                            className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors ${currentPage === 1 ? "text-gray-300 cursor-not-allowed" : "text-gray-600 hover:bg-gray-100"}`}
+                            disabled={currentPage === 1}
+                        >
+                            <ChevronLeft size={20} />
+                        </button>
 
-                    <button className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 font-bold flex items-center justify-center">
-                        1
-                    </button>
-                    <button className="w-10 h-10 rounded-lg text-gray-600 font-medium hover:bg-gray-100 transition-colors flex items-center justify-center">
-                        2
-                    </button>
-                    <button className="w-10 h-10 rounded-lg text-gray-600 font-medium hover:bg-gray-100 transition-colors flex items-center justify-center">
-                        3
-                    </button>
+                        {[1, 2, 3].map((page) => (
+                            <button
+                                key={page}
+                                onClick={() => setCurrentPage(page)}
+                                className={`w-10 h-10 rounded-lg font-medium flex items-center justify-center transition-colors ${currentPage === page ? "bg-blue-50 text-blue-600 font-bold" : "text-gray-600 hover:bg-gray-100"}`}
+                            >
+                                {page}
+                            </button>
+                        ))}
 
-                    <button className="flex items-center justify-center w-10 h-10 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
-                        <ChevronRight size={20} />
-                    </button>
-                </div>
+                        <button
+                            onClick={() =>
+                                setCurrentPage((prev) => Math.min(prev + 1, 3))
+                            }
+                            className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors ${currentPage === 3 ? "text-gray-300 cursor-not-allowed" : "text-gray-600 hover:bg-gray-100"}`}
+                            disabled={currentPage === 3}
+                        >
+                            <ChevronRight size={20} />
+                        </button>
+                    </div>
+                )}
             </div>
 
             {/* 5. FOOTER */}
@@ -667,7 +726,11 @@ export default function News() {
                             ].map((link) => (
                                 <li key={link}>
                                     <a
-                                        href="#"
+                                        href={
+                                            link === "Home"
+                                                ? "/"
+                                                : `/${link.toLowerCase().replace(" ", "")}`
+                                        }
                                         className="text-sm text-gray-400 hover:text-white transition"
                                     >
                                         {link}
@@ -682,19 +745,19 @@ export default function News() {
                         <h4 className="font-bold text-lg mb-6">Services</h4>
                         <ul className="space-y-4">
                             {[
-                                "Business Permit",
-                                "Real Property Tax",
-                                "Job Openings",
-                                "Civil Registry",
-                                "Health Services",
-                                "Social Welfare",
+                                { title: "Business Permit", url: "/bplo" },
+                                { title: "Real Property Tax", url: "#" },
+                                { title: "Job Openings", url: "/peso" },
+                                { title: "Civil Registry", url: "/registry" },
+                                { title: "Health Services", url: "/health" },
+                                { title: "Social Welfare", url: "#" },
                             ].map((link) => (
-                                <li key={link}>
+                                <li key={link.title}>
                                     <a
-                                        href="#"
+                                        href={link.url}
                                         className="text-sm text-gray-400 hover:text-white transition"
                                     >
-                                        {link}
+                                        {link.title}
                                     </a>
                                 </li>
                             ))}

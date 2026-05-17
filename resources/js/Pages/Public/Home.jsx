@@ -105,7 +105,7 @@ const NEWS = [
         id: 1,
         title: "Cabuyao City Launches New Community Health Initiative",
         date: "March 1, 2024",
-        image: "/images/hospital.png",
+        image: "/images/hospital-project.png",
     },
     {
         id: 2,
@@ -769,9 +769,8 @@ export default function Home() {
                         <div className="w-1/3 h-full bg-red-600"></div>
                     </div>
                 </div>
-
                 {/* --- MAYOR CARD --- */}
-                <div className="rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row relative max-w-5xl mx-auto mb-60">
+                <div className="rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row relative max-w-5xl mx-auto mb-40">
                     <div className="md:w-5/12 bg-[#1e293b] min-h-[450px] md:min-h-[500px] relative overflow-hidden">
                         {/* ACTUAL MAYOR IMAGE */}
                         <img
@@ -814,38 +813,34 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-
                 {/* --- VICE MAYOR CARD --- */}
-                <div className="bg-white rounded-2xl shadow-xl border border-gray-100 px-6 pb-12 pt-8 max-w-3xl mx-auto -mt-24 relative z-10 flex flex-col items-center text-center mb-24">
-                    {/* AVATAR WRAPPER */}
-                    <div className="w-32 h-32 rounded-full bg-white p-2 shadow-md overflow-hidden mb-4">
-                        {/* ACTUAL VICE MAYOR IMAGE */}
+                <div
+                    className="flex flex-col items-center bg-white rounded-2xl shadow-xl border
+                border-gray-100 px-6 pb-12 pt-8 max-w-3xl mx-auto text-center w-full flex-shrink-0 group/card cursor-pointer mb-24"
+                >
+                    <div className="w-48 h-48 rounded-full bg-gray-50 border-2 border-transparent group-hover/card:border-red-500 transition-all p-2 mb-6 shadow-xl overflow-hidden">
                         <img
                             src="/images/vice-mayor.jpg"
                             alt="Hon. Junjun Batallones"
-                            className="w-full h-full rounded-full object-cover object-top"
+                            className="w-full h-full rounded-full object-cover object-top group-hover/card:scale-110 transition-transform duration-500"
                             onError={(e) =>
                                 (e.target.src =
                                     "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200")
                             }
                         />
                     </div>
-
                     <span className="bg-red-50 text-red-600 text-xs font-bold px-6 py-2 rounded-full mb-3 inline-block border border-red-100 uppercase tracking-wide">
                         Vice Mayor
                     </span>
-
-                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2 leading-tight">
                         Hon. Batallones, Junjun
                     </h3>
-
-                    <p className="text-gray-500 text-base">
+                    <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">
                         Presiding Officer, Sangguniang Panlungsod
                     </p>
                 </div>
-
                 {/* Councilors */}
-                <div className="text-center mb-12 mt-12">
+                <div className="text-center mb-12 mt-30">
                     <h3 className="text-2xl font-bold text-gray-900 inline-block relative">
                         Sangguniang Panlungsod Members
                         <div className="flex h-1 w-24 absolute -bottom-3 left-1/2 -translate-x-1/2">
@@ -855,7 +850,6 @@ export default function Home() {
                         </div>
                     </h3>
                 </div>
-
                 <div className="relative max-w-7xl mx-auto px-12 md:px-16">
                     {/* Left Arrow */}
                     <button

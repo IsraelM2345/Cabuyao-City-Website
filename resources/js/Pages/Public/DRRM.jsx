@@ -559,9 +559,12 @@ export default function DRRM() {
                                 distribution tracking.
                             </p>
 
-                            <button className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-xl transition-colors shadow-md mb-4">
+                            <a
+                                href="/login"
+                                className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-xl transition-colors shadow-md mb-4 text-center inline-block"
+                            >
                                 Access Portal Login
-                            </button>
+                            </a>
 
                             <p className="text-[10px] text-slate-500 text-center uppercase tracking-wide font-medium">
                                 *For authorized CDRRMO and Barangay personnel

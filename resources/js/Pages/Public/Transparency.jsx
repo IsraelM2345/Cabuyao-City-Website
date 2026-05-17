@@ -76,6 +76,7 @@ const DOCUMENTS = [
 export default function Transparency() {
     // --- STATES ---
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
 
     // State to track which mobile dropdown is currently open
     const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
@@ -84,6 +85,15 @@ export default function Transparency() {
     const toggleMobileDropdown = (menuName) => {
         setOpenMobileDropdown((prev) => (prev === menuName ? null : menuName));
     };
+
+    // --- FILTER LOGIC ---
+    const filteredDocuments = DOCUMENTS.filter((doc) => {
+        return (
+            doc.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            doc.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            doc.year.includes(searchQuery)
+        );
+    });
 
     return (
         <div className="min-h-screen bg-gray-50 font-sans text-gray-800">
@@ -98,7 +108,7 @@ export default function Transparency() {
                 Republic of the Philippines
             </div>
 
-            {/* 2. NAVIGATION BAR (No EvacTrack Login) */}
+            {/* 2. NAVIGATION BAR */}
             <nav className="w-full bg-white px-6 md:px-12 py-4 flex items-center justify-between shadow-sm sticky top-0 z-50">
                 <div className="flex items-center gap-3">
                     <img
@@ -162,9 +172,9 @@ export default function Transparency() {
                         </div>
                     </div>
 
-                    {/* Dropdown: Government (ACTIVE STATE) */}
+                    {/* Dropdown: Government */}
                     <div className="relative group py-4">
-                        <button className="flex items-center gap-1 text-sm font-bold text-red-600 transition">
+                        <button className="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-red-600 transition">
                             Government <ChevronDown size={14} />
                         </button>
                         <div className="absolute top-full left-0 mt-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
@@ -287,7 +297,11 @@ export default function Transparency() {
                                 The City
                                 <ChevronDown
                                     size={18}
-                                    className={`transition-transform duration-300 ${openMobileDropdown === "city" ? "rotate-180 text-red-600" : "text-gray-400"}`}
+                                    className={`transition-transform duration-300 ${
+                                        openMobileDropdown === "city"
+                                            ? "rotate-180 text-red-600"
+                                            : "text-gray-400"
+                                    }`}
                                 />
                             </button>
                             {openMobileDropdown === "city" && (
@@ -329,7 +343,11 @@ export default function Transparency() {
                                 Government
                                 <ChevronDown
                                     size={18}
-                                    className={`transition-transform duration-300 ${openMobileDropdown === "gov" ? "rotate-180 text-red-600" : "text-red-600"}`}
+                                    className={`transition-transform duration-300 ${
+                                        openMobileDropdown === "gov"
+                                            ? "rotate-180 text-red-600"
+                                            : "text-red-600"
+                                    }`}
                                 />
                             </button>
                             {openMobileDropdown === "gov" && (
@@ -371,7 +389,11 @@ export default function Transparency() {
                                 E-Services
                                 <ChevronDown
                                     size={18}
-                                    className={`transition-transform duration-300 ${openMobileDropdown === "services" ? "rotate-180 text-red-600" : "text-gray-400"}`}
+                                    className={`transition-transform duration-300 ${
+                                        openMobileDropdown === "services"
+                                            ? "rotate-180 text-red-600"
+                                            : "text-gray-400"
+                                    }`}
                                 />
                             </button>
                             {openMobileDropdown === "services" && (
@@ -476,64 +498,104 @@ export default function Transparency() {
                         </p>
                     </div>
 
-                    <div className="w-full lg:w-auto flex items-center bg-white rounded-xl shadow-sm border border-gray-200 px-4 py-2">
+                    <div className="w-full lg:w-auto flex items-center bg-white rounded-xl shadow-sm border border-gray-200 px-4 py-2 transition-all focus-within:ring-2 focus-within:ring-blue-200 focus-within:border-blue-500">
                         <Search className="text-gray-400 mr-3" size={20} />
                         <input
                             type="text"
                             placeholder="Search documents..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
                             className="w-full lg:w-64 outline-none text-gray-700 bg-transparent py-2"
                         />
+                        {searchQuery && (
+                            <button
+                                onClick={() => setSearchQuery("")}
+                                className="ml-2 text-gray-400 hover:text-gray-600 transition-colors"
+                            >
+                                <X size={16} />
+                            </button>
+                        )}
                     </div>
                 </div>
 
                 {/* Documents Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                    {DOCUMENTS.map((doc) => (
-                        <div
-                            key={doc.id}
-                            className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full group"
-                        >
-                            <div className="flex justify-between items-start mb-4">
-                                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
-                                    <FileText
-                                        className="text-blue-600"
-                                        size={24}
-                                        strokeWidth={2}
-                                    />
+                <div className="space-y-6">
+                    {filteredDocuments.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                            {filteredDocuments.map((doc) => (
+                                <div
+                                    key={doc.id}
+                                    className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full group"
+                                >
+                                    <div className="flex justify-between items-start mb-4">
+                                        <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                                            <FileText
+                                                className="text-blue-600"
+                                                size={24}
+                                                strokeWidth={2}
+                                            />
+                                        </div>
+                                        <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                                            {doc.year}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex-grow">
+                                        <p className="text-xs text-red-500 font-bold uppercase tracking-wider mb-2">
+                                            {doc.category}
+                                        </p>
+                                        <h4 className="text-lg font-bold text-gray-900 mb-4 leading-snug group-hover:text-blue-700 transition-colors">
+                                            {doc.title}
+                                        </h4>
+                                    </div>
+
+                                    <div className="mt-auto pt-4 border-t border-gray-50 flex items-center justify-between">
+                                        <span className="text-sm text-gray-400 font-medium">
+                                            Size: {doc.size}
+                                        </span>
+                                        <button className="flex items-center gap-1.5 text-blue-600 font-bold text-sm bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-lg transition-colors">
+                                            <Download
+                                                size={16}
+                                                strokeWidth={2.5}
+                                            />{" "}
+                                            Download
+                                        </button>
+                                    </div>
                                 </div>
-                                <span className="bg-gray-100 text-gray-600 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
-                                    {doc.year}
-                                </span>
-                            </div>
-
-                            <div className="flex-grow">
-                                <p className="text-xs text-red-500 font-bold uppercase tracking-wider mb-2">
-                                    {doc.category}
-                                </p>
-                                <h4 className="text-lg font-bold text-gray-900 mb-4 leading-snug group-hover:text-blue-700 transition-colors">
-                                    {doc.title}
-                                </h4>
-                            </div>
-
-                            <div className="mt-auto pt-4 border-t border-gray-50 flex items-center justify-between">
-                                <span className="text-sm text-gray-400 font-medium">
-                                    Size: {doc.size}
-                                </span>
-                                <button className="flex items-center gap-1.5 text-blue-600 font-bold text-sm bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-lg transition-colors">
-                                    <Download size={16} strokeWidth={2.5} />{" "}
-                                    Download
-                                </button>
-                            </div>
+                            ))}
                         </div>
-                    ))}
+                    ) : (
+                        <div className="text-center py-20 bg-white rounded-3xl border border-gray-100 shadow-sm">
+                            <Search
+                                className="mx-auto text-gray-300 mb-4"
+                                size={48}
+                                strokeWidth={1.5}
+                            />
+                            <h3 className="text-xl font-bold text-gray-800 mb-2">
+                                No documents found
+                            </h3>
+                            <p className="text-gray-500">
+                                We couldn't find any public documents matching
+                                your search.
+                            </p>
+                            <button
+                                onClick={() => setSearchQuery("")}
+                                className="mt-6 bg-blue-50 text-blue-600 font-bold px-6 py-2.5 rounded-xl hover:bg-blue-100 transition-colors"
+                            >
+                                Clear Search
+                            </button>
+                        </div>
+                    )}
                 </div>
 
-                {/* Pagination / Load More */}
-                <div className="mt-12 text-center">
-                    <button className="bg-transparent border-2 border-gray-200 text-gray-600 font-bold px-8 py-3.5 rounded-xl hover:border-gray-900 hover:text-gray-900 transition-colors inline-flex items-center gap-2">
-                        Load More Documents
-                    </button>
-                </div>
+                {/* Pagination / Load More (Only show if there are documents) */}
+                {filteredDocuments.length > 0 && (
+                    <div className="mt-12 text-center">
+                        <button className="bg-transparent border-2 border-gray-200 text-gray-600 font-bold px-8 py-3.5 rounded-xl hover:border-gray-900 hover:text-gray-900 transition-colors inline-flex items-center gap-2">
+                            Load More Documents
+                        </button>
+                    </div>
+                )}
             </div>
 
             {/* 5. FOOTER */}
@@ -636,7 +698,11 @@ export default function Transparency() {
                             ].map((link) => (
                                 <li key={link}>
                                     <a
-                                        href="#"
+                                        href={
+                                            link === "Home"
+                                                ? "/"
+                                                : `/${link.toLowerCase().replace(" ", "")}`
+                                        }
                                         className="text-sm text-gray-400 hover:text-white transition"
                                     >
                                         {link}
@@ -651,26 +717,26 @@ export default function Transparency() {
                         <h4 className="font-bold text-lg mb-6">Services</h4>
                         <ul className="space-y-4">
                             {[
-                                "Business Permit",
-                                "Real Property Tax",
-                                "Job Openings",
-                                "Civil Registry",
-                                "Health Services",
-                                "Social Welfare",
+                                { title: "Business Permit", url: "/bplo" },
+                                { title: "Real Property Tax", url: "#" },
+                                { title: "Job Openings", url: "/peso" },
+                                { title: "Civil Registry", url: "/registry" },
+                                { title: "Health Services", url: "/health" },
+                                { title: "Social Welfare", url: "#" },
                             ].map((link) => (
-                                <li key={link}>
+                                <li key={link.title}>
                                     <a
-                                        href="#"
+                                        href={link.url}
                                         className="text-sm text-gray-400 hover:text-white transition"
                                     >
-                                        {link}
+                                        {link.title}
                                     </a>
                                 </li>
                             ))}
                         </ul>
                     </div>
 
-                    {/* Contact Us Section */}
+                    {/* Contact Us */}
                     <div>
                         <h4 className="font-bold text-lg mb-6">Contact Us</h4>
                         <ul className="space-y-5">
@@ -713,7 +779,7 @@ export default function Transparency() {
                 {/* Bottom Copyright Bar */}
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between pt-8 border-t border-slate-700 text-xs text-gray-500">
                     <p className="text-[#60A5FA]">
-                        © 2026 City of Cabuyao. All rights reserved.
+                        © 2026 Municipality of Cabuyao. All rights reserved.
                     </p>
                     <p className="text-[#60A5FA]">
                         Powered by{" "}
