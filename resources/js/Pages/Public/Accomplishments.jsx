@@ -54,7 +54,7 @@ const PROJECTS = [
         category: "Healthcare",
         date: "Completed December 2025",
         desc: "A state-of-the-art 5-story facility equipped with modern operating rooms, intensive care units, and a dedicated pediatric ward to serve more Cabuyeños.",
-        image: "/images/hospital.jpg",
+        image: "/images/hospital.png",
     },
     {
         id: 2,
@@ -66,11 +66,11 @@ const PROJECTS = [
     },
     {
         id: 3,
-        title: "Cabuyao Central Public Market Modernization",
-        category: "Economic Development",
-        date: "Completed August 2025",
-        desc: "Complete renovation of the public market with improved sanitation facilities, better ventilation, and an organized zoning system for vendors.",
-        image: "/images/market-project.jpg",
+        title: "Automated Material Recovery Facility (MRF)",
+        category: "Environment",
+        date: "Completed October 2025",
+        desc: "Establishment of a state-of-the-art waste segregation and recycling facility capable of processing up to 100 tons of solid waste daily, significantly reducing landfill dependency.",
+        image: "/images/mrf-project.png",
     },
     {
         id: 4,
@@ -82,11 +82,11 @@ const PROJECTS = [
     },
     {
         id: 5,
-        title: "City Plaza Solar Lighting Initiative",
-        category: "Environment",
+        title: "Bagong Cabuyao Hall (BCH)",
+        category: "Education & Infrastructure",
         date: "Completed March 2025",
-        desc: "Transitioned all public parks and major streets to 100% renewable solar streetlights, significantly reducing the city's carbon footprint.",
-        image: "/images/solar-project.jpg",
+        desc: "At the Pamantasan ng Cabuyao (UC-PnC), BCH refers to the Bagong Cabuyao Hall. The building itself represents one of the university's major achievements in campus modernization, serving as the central hub for administrative operations, student services, and most of the academic colleges.",
+        image: "/images/bch.png",
     },
     {
         id: 6,
@@ -312,7 +312,11 @@ export default function Accomplishments() {
                                 The City
                                 <ChevronDown
                                     size={18}
-                                    className={`transition-transform duration-300 ${openMobileDropdown === "city" ? "rotate-180 text-red-600" : "text-red-600"}`}
+                                    className={`transition-transform duration-300 ${
+                                        openMobileDropdown === "city"
+                                            ? "rotate-180 text-red-600"
+                                            : "text-red-600"
+                                    }`}
                                 />
                             </button>
                             {openMobileDropdown === "city" && (
@@ -354,7 +358,11 @@ export default function Accomplishments() {
                                 Government
                                 <ChevronDown
                                     size={18}
-                                    className={`transition-transform duration-300 ${openMobileDropdown === "gov" ? "rotate-180 text-red-600" : "text-gray-400"}`}
+                                    className={`transition-transform duration-300 ${
+                                        openMobileDropdown === "gov"
+                                            ? "rotate-180 text-red-600"
+                                            : "text-gray-400"
+                                    }`}
                                 />
                             </button>
                             {openMobileDropdown === "gov" && (
@@ -396,7 +404,11 @@ export default function Accomplishments() {
                                 E-Services
                                 <ChevronDown
                                     size={18}
-                                    className={`transition-transform duration-300 ${openMobileDropdown === "services" ? "rotate-180 text-red-600" : "text-gray-400"}`}
+                                    className={`transition-transform duration-300 ${
+                                        openMobileDropdown === "services"
+                                            ? "rotate-180 text-red-600"
+                                            : "text-gray-400"
+                                    }`}
                                 />
                             </button>
                             {openMobileDropdown === "services" && (
@@ -450,7 +462,7 @@ export default function Accomplishments() {
                         </a>
                         <a
                             href="/contact"
-                            className="px-6 py-4 text-sm font-semibold text-gray-800 hover:text-red-600 border-b border-gray-50 transition-colors"
+                            className="px-6 py-4 text-sm font-semibold text-gray-800 hover:text-red-600 transition-colors"
                         >
                             Contact
                         </a>
@@ -464,7 +476,7 @@ export default function Accomplishments() {
                     className="absolute inset-0 bg-cover bg-center opacity-50"
                     style={{
                         backgroundImage: "url('/images/accomplishment.jpg')",
-                    }} // E.g., ribbon cutting or city skyline
+                    }}
                 />
                 <div className="relative z-10 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto w-full">
                     <div className="flex items-center gap-4 mb-4">
