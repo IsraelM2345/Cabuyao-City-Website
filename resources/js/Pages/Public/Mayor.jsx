@@ -440,7 +440,7 @@ export default function Mayor() {
                     <div className="md:w-5/12 bg-[#1e293b] min-h-[450px] md:min-h-[600px] relative overflow-hidden">
                         {/* ACTUAL MAYOR IMAGE */}
                         <img
-                            src="/images/mayor.jpg"
+                            src="/images/denha-mayor.png"
                             alt="Hon. Dennis DenHa Hain"
                             className="absolute inset-0 w-full h-full object-cover object-top"
                         />
