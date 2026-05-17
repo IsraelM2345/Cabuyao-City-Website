@@ -19,7 +19,7 @@ const NEWS_ARTICLES = [
     {
         id: 1,
         category: "Technology",
-        date: "May 15, 2026",
+        date: "May 15, 2025",
         title: "City Government Launches New E-Governance Portal",
         excerpt:
             "The City of Cabuyao officially launches its integrated web portal to streamline public services and disaster management operations. The new system aims to provide faster transactions and improved accessibility for all Cabuyeños.",
@@ -28,7 +28,7 @@ const NEWS_ARTICLES = [
     {
         id: 2,
         category: "DRRM",
-        date: "May 10, 2026",
+        date: "May 10, 2025",
         title: "Pre-Emptive Evacuation Guidelines Released for Typhoon Season",
         excerpt:
             "CDRRMO releases updated guidelines and designated evacuation centers in preparation for the upcoming typhoon season. Residents in low-lying areas are advised to register their households immediately.",
@@ -37,7 +37,7 @@ const NEWS_ARTICLES = [
     {
         id: 3,
         category: "Business",
-        date: "May 05, 2026",
+        date: "May 05, 2025",
         title: "Business Permit Renewal Deadline Extended",
         excerpt:
             "The City Mayor has approved the extension of business permit renewals without penalties until the end of the month to accommodate the transition to the new online payment system.",
@@ -46,7 +46,7 @@ const NEWS_ARTICLES = [
     {
         id: 4,
         category: "Health",
-        date: "April 28, 2026",
+        date: "April 28, 2025",
         title: "City Health Office Conducts Free Medical Mission",
         excerpt:
             "Over 500 residents benefited from the free medical and dental mission conducted by the City Health Office in Barangay Banay-Banay last weekend, providing essential care to the community.",
@@ -55,7 +55,7 @@ const NEWS_ARTICLES = [
     {
         id: 5,
         category: "Education",
-        date: "April 20, 2026",
+        date: "April 20, 2025",
         title: "New Scholarship Grants Open for College Students",
         excerpt:
             "The City Government is now accepting applications for the Iskolar ng Cabuyao program for the academic year 2026-2027. Apply online through the E-Governance portal.",
