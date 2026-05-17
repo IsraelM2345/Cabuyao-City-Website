@@ -443,10 +443,6 @@ export default function Mayor() {
                             src="/images/mayor.jpg"
                             alt="Hon. Dennis DenHa Hain"
                             className="absolute inset-0 w-full h-full object-cover object-top"
-                            onError={(e) =>
-                                (e.target.src =
-                                    "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&q=80&w=600")
-                            }
                         />
                     </div>
                     <div className="md:w-7/12 p-10 md:p-16 flex flex-col justify-center bg-white">
