@@ -54,7 +54,7 @@ const PROJECTS = [
         category: "Healthcare",
         date: "Completed December 2025",
         desc: "A state-of-the-art 5-story facility equipped with modern operating rooms, intensive care units, and a dedicated pediatric ward to serve more Cabuyeños.",
-        image: "/images/hospital.png",
+        image: "/images/hospital-project.png",
     },
     {
         id: 2,
