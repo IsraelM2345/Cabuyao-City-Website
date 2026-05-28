@@ -465,8 +465,9 @@ export default function Council() {
                     </div>
                 </div>
 
-                <div className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden max-w-2xl mx-auto flex flex-col md:flex-row mb-20 group">
-                    <div className="md:w-2/5 h-64 md:h-auto relative bg-gray-200 overflow-hidden">
+                <div className="bg-white rounded-3xl shadow-lg border border-gray-100 max-w-3xl mx-auto flex flex-col md:flex-row items-center p-6 md:p-8 mb-20 group">
+                    {/* Image Container */}
+                    <div className="w-56 h-56 md:w-64 md:h-64 relative rounded-full overflow-hidden flex-shrink-0 mb-6 md:mb-0 mx-auto md:mx-0 shadow-sm border-2  border-gray-50 group-hover:border-red-500">
                         <img
                             src="/images/vice-mayor.jpg"
                             alt="Hon. Junjun Batallones"
@@ -477,7 +478,9 @@ export default function Council() {
                             }
                         />
                     </div>
-                    <div className="md:w-3/5 p-8 flex flex-col justify-center text-center md:text-left">
+
+                    {/* Text Container */}
+                    <div className="flex-1 md:pl-10 flex flex-col justify-center text-center md:text-left">
                         <span className="bg-red-50 text-red-600 text-xs font-bold px-4 py-1.5 rounded-full mb-4 inline-block w-max mx-auto md:mx-0 border border-red-100 uppercase tracking-wide">
                             City Vice Mayor
                         </span>
@@ -508,7 +511,7 @@ export default function Council() {
                             key={councilor.id}
                             className="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-100 transition-all duration-300 p-6 flex flex-col items-center text-center group"
                         >
-                            <div className="w-32 h-32 rounded-full overflow-hidden mb-5 border-4 border-gray-50 group-hover:border-red-100 transition-colors shadow-sm">
+                            <div className="w-32 h-32 rounded-full overflow-hidden mb-5 border-2 border-gray-50 group-hover:border-red-500 transition-colors shadow-sm">
                                 <img
                                     src={councilor.image}
                                     alt={councilor.name}
